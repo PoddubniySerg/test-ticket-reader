@@ -17,8 +17,8 @@ public class TicketsReaderApplication {
         final TicketsController controller = context.getBean(TicketsController.class);
         final boolean argsExist = args != null && args.length > 0;
         final String sourceFilePath = argsExist ? args[0] : "./assets/tickets.json";
-        final String city1 = argsExist ? args[1] : "Владивосток";
-        final String city2 = argsExist ? args[2] : "Тель-Авив";
+        final String city1 = argsExist && args.length >= 2 ? args[1] : "Владивосток";
+        final String city2 = argsExist && args.length >= 3 ? args[2] : "Тель-Авив";
         final TicketsSource ticketsSource = new TicketsSource(sourceFilePath, city1, city2);
         final AverageFlightTime averageFlightTime = controller.getAverageFlightTime(ticketsSource);
         final PercentilePosition percentilePosition = new PercentilePosition(90);
@@ -40,7 +40,7 @@ public class TicketsReaderApplication {
 
     private static String formatPercentile(Percentile percentile, String city1, String city2) {
         return String.format(
-                "\n90-й процентиль времени полета между городами %s и %s %d:%02d:%02d",
+                "90-й процентиль времени полета между городами %s и %s %d:%02d:%02d\n",
                 city1,
                 city2,
                 percentile.hours(),
