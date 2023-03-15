@@ -12,7 +12,7 @@ public class Tickets {
                 .sorted()
                 .toArray();
         final int index = Math.ceilDiv(array.length * percentile, 100);
-        return array[index];
+        return array[index - 1];
     }
 
     public double getAverageDuration(List<Ticket> tickets, String city1, String city2) {
